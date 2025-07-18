@@ -1,2 +1,4 @@
 venv/
 drf.code-workspace
+__pycache__/
+*.py[cod]
