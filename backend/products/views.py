@@ -2,12 +2,15 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics, mixins, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from api.mixins import StaffEditorPermissionMixin
+from api.mixins import (
+    StaffEditorPermissionMixin, 
+    UserQuerySetMixin)
 
 from .models import Product
 from .serializers import ProductSerializer
 
 class ProductListCreateAPIView(
+    UserQuerySetMixin,
     StaffEditorPermissionMixin,
     generics.ListCreateAPIView):
     queryset = Product.objects.all()
@@ -25,6 +28,7 @@ product_list_create_view = ProductListCreateAPIView.as_view()
 
 
 class ProductDetailAPIView(
+    UserQuerySetMixin,
     StaffEditorPermissionMixin,
     generics.RetrieveAPIView):
     queryset = Product.objects.all()
@@ -36,6 +40,7 @@ product_detail_view = ProductDetailAPIView.as_view()
 
 
 class ProductUpdateAPIView(
+    UserQuerySetMixin,
     StaffEditorPermissionMixin,
     generics.UpdateAPIView):
     queryset = Product.objects.all()
@@ -52,6 +57,7 @@ product_update_view = ProductUpdateAPIView.as_view()
 
 
 class ProductDestroyAPIView(
+    UserQuerySetMixin,
     StaffEditorPermissionMixin,
     generics.DestroyAPIView):
     queryset = Product.objects.all()
